@@ -1,10 +1,10 @@
 <?php
 class DBController
 {
-    private $host = "localhost";
-    private $user = "root";
-    private $password = "";
-    private $database = "scandiweb";
+    private $host = "sql5.freemysqlhosting.net:3306";
+    private $user = "sql5477704";
+    private $password = "31Pa8alXPQ";
+    private $database = "sql5477704";
     private $conn;
 
     function __construct()
