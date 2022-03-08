@@ -2,6 +2,7 @@
 require_once ("class/DBController.php");
 require_once ("class/Size.php");
 require_once ("class/Weight.php");
+require_once ("class/Dimension.php");
 abstract class Product
 {
     public $db_handle;
@@ -87,10 +88,45 @@ class Dvd extends Product{
 
     function getAllProduct() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        $sql = "SELECT * FROM products LEFT JOIN size ON products.sku=size.sku";
+        $sql = "SELECT * FROM products JOIN size ON products.sku=size.sku";
        /*  $sql = "SELECT * FROM products ORDER BY sku"; */
         $result = $this->db_handle->runBaseQuery($sql);
-        return $result;
+        if(!empty($result)) return $result;
+        else return [];
+    }
+}
+
+class Book extends Product{
+    public function setAttributes($sku,$attr){
+        $attributes = new weight();
+        $insertId = $attributes->addWeight($sku,$attr['weight']);
+        return $insertId;
+    }
+
+    function getAllProduct() {
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+        $sql = "SELECT * FROM products  JOIN weight ON products.sku=weight.sku" ;
+       /*  $sql = "SELECT * FROM products ORDER BY sku"; */
+        $result = $this->db_handle->runBaseQuery($sql);
+        if(!empty($result)) return $result;
+        else return [];
+    }
+}
+
+class Furniture extends Product{
+    public function setAttributes($sku,$attr){
+        $attributes = new Dimension();
+        $insertId = $attributes->addDimension($sku,$attr);
+        return $insertId;
+    }
+
+    function getAllProduct() {
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+        $sql = "SELECT * FROM products JOIN dimension ON products.sku=dimension.sku";
+       /*  $sql = "SELECT * FROM products ORDER BY sku"; */
+        $result = $this->db_handle->runBaseQuery($sql);
+        if(!empty($result)) return $result;
+        else return [];
     }
 }
 
@@ -100,7 +136,12 @@ class Common extends Product{
     }
     function getAllProduct() {
         $dvd = new Dvd();
-        $result = $dvd->getAllProduct();
+        $alldvd = $dvd->getAllProduct();
+        $book = new Book();
+        $allbook = $book->getAllProduct();
+        $furniture = new Furniture();
+        $allFurniture = $furniture->getAllProduct();
+        $result = array_merge($alldvd,$allbook,$allFurniture);
         return $result;
     }
 }

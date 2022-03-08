@@ -22,8 +22,20 @@ if ($request_method == "POST") {
             $price = $data['price'];
             $typeId = $data['typeId'];
             $attributes = $data['attributes'];
-            $dvd = new Dvd();
-            $insertId = $dvd->addProduct($sku, $name, $price, $typeId);
+            switch($typeId){
+                case 1:
+                    $product = new Dvd() ;
+                    break;
+                case 2:
+                    $product = new Book() ;
+                    break;
+                case 3:
+                    $product = new Furniture() ;
+                    break;
+                default:
+                    break;
+            }
+            $insertId = $product->addProduct($sku, $name, $price, $typeId);
             if (empty($insertId)) {
                 $response = array(
                     "message" => "Problem in Adding New Record",
@@ -31,7 +43,7 @@ if ($request_method == "POST") {
                 );
                 echo json_encode($response);
             } else {
-                $insertId = $dvd->setAttributes($sku,$attributes);
+                $insertId = $product->setAttributes($sku,$attributes);
                 if (empty($insertId)) {
                     $response = array(
                         "message" => "Problem in Adding New Record",

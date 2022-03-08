@@ -42,7 +42,6 @@ function ListProduct() {
 
   useLayoutEffect(()=>{
     getList();
-    console.log()
   },[])
   return (
     <>

@@ -21,12 +21,12 @@ const Product = (props) =>{
     <Price>{product.price} $</Price>
     {product? (
       <Attribute>
-        {product.typeId === '2' ? (
+        {product.typeId === '1' ? (
           <p>
             Size:{" "}
             {product.size && product.size}
           </p>
-        ) : product.typeId === "3" ? (
+        ) : product.typeId === "2" ? (
           <p>
             Weight:{" "}
             {product.weight &&

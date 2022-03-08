@@ -45,12 +45,15 @@ function AddProduct() {
         sku,
         name,
         price,
-        typeId: 2,
+        typeId:type,
         attributes: attributes,
       });
     }
   };
 useEffect(()=>{
+  console.log(sku)
+  console.log(name)
+  console.log(type)
   console.log(attributes)
 },[attributes])
   return (
