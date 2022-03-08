@@ -123,7 +123,6 @@ class Furniture extends Product{
     function getAllProduct() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $sql = "SELECT * FROM products JOIN dimension ON products.sku=dimension.sku";
-       /*  $sql = "SELECT * FROM products ORDER BY sku"; */
         $result = $this->db_handle->runBaseQuery($sql);
         if(!empty($result)) return $result;
         else return [];
