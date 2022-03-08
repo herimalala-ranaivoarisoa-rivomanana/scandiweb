@@ -81,7 +81,6 @@ code {
   --c-white: #ffffff;
   --c-text: #1d1f22;
   --c-gray: #8d8f9a;
-  --c-primary: #5ece7b;
 }
 
 html {
@@ -92,7 +91,28 @@ body {
   width:screen;
 }
 
+form{
+  width:1440px;
+  height:660px;
+  margin:auto;
+  border-bottom:2px solid #ccc;
+}
+
+section{
+  width:1440px;
+  height:660px;
+  margin:auto;
+  border-bottom:2px solid #ccc;
+}
 
 a{
   text-decoration: none;
+}
+
+footer{
+  width:1440px;
+  height:200px;
+  margin:auto;
+  padding-top:40px;
+  text-align:center;
 }

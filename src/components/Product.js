@@ -23,18 +23,17 @@ const Product = (props) =>{
       <Attribute>
         {product.typeId === '1' ? (
           <p>
-            Size:{" "}
-            {product.size && product.size}
+            Size{" "}
+            {product.size && `${product.size} MB`}
           </p>
         ) : product.typeId === "2" ? (
           <p>
-            Weight:{" "}
-            {product.weight &&
-              product.weight}
+            Weight{" "}
+            {product.weight && `${product.weight} KG`}
           </p>
         ) : (
           <p>
-            Dimension:{" "}
+            Dimension{" "}
             {`${
               product.height &&
               product.height
@@ -51,6 +50,7 @@ const Product = (props) =>{
     <CheckBox
       type='checkbox'
       name='selected'
+      className='delete-checkbox'
       onChange={(e) => handleChange(e, product.sku)}
     />
   </ProductItem>
@@ -66,7 +66,7 @@ const ProductItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin:20px 40px 20px 40px;
   background: #ffffff;
   filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
 `;

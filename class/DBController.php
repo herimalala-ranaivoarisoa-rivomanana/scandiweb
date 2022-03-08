@@ -1,10 +1,16 @@
 <?php
 class DBController
 {
-    private $host = "sql109.epizy.com";
+   /*  private $host = "sql109.epizy.com";
     private $user = "epiz_31241024";
     private $password = "epiz_31241024!";
     private $database = "epiz_31241024_scandiweb";
+    private $conn; */
+
+    private $host = "localhost";
+    private $user = "root";
+    private $password = "";
+    private $database = "scandiweb";
     private $conn;
 
     function __construct()

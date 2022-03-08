@@ -1,10 +1,10 @@
 import axios from "axios";
-import {useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function AddProduct() {
-  const typeList=[
+  const typeList = [
     { id: 1, name: "DVD" },
     { id: 2, name: "Book" },
     { id: 3, name: "Furniture" },
@@ -19,23 +19,22 @@ function AddProduct() {
   const [type, setType] = useState();
   const [attributes, setAttributes] = useState({});
   const [error, setError] = useState({
-    sku: false,
-    name: false,
-    price: false,
-    size: false,
-    weight: false,
-    height: false,
-    width: false,
-    length: false,
+    sku: true,
+    name: true,
+    price: true,
+    size: true,
+    weight: true,
+    height: true,
+    width: true,
+    length: true,
   });
-
 
   const save = async () => {
     if (
       !error.sku &&
       !error.name &&
       !error.price &&
-      !error.size&&
+      !error.size &&
       !error.weight &&
       !error.height &&
       !error.width &&
@@ -45,7 +44,7 @@ function AddProduct() {
         sku,
         name,
         price,
-        typeId:type,
+        typeId: type,
         attributes: attributes,
       });
     }
@@ -56,33 +55,42 @@ function AddProduct() {
       <Header>
         <Title>ADD PRODUCT</Title>
         <Navigation>
-          <Link
-            to={`${
-              !error.sku &&
-              !error.name &&
-              !error.price &&
-              !error.weight &&
-              !error.height &&
-              !error.width &&
-              !error.height
-                ? "/"
-                : "/addproduct"
-            }`}
-          >
-            <Button onClick={save}>SAVE</Button>
-          </Link>
+          <Button onClick={save}>
+            <Link
+              to={`${
+                !error.sku &&
+                !error.name &&
+                !error.price &&
+                !error.weight &&
+                !error.height &&
+                !error.width &&
+                !error.height
+                  ? "/"
+                  : "/addproduct"
+              }`}
+            >
+              Save
+            </Link>
+          </Button>
+
           <Link to='/'>
-            <Button>CANCEL</Button>
+            <Button>Cancel</Button>
           </Link>
         </Navigation>
       </Header>
       <form id='product_form'>
         <Product>
-          {sku && sku.length > 0 && error.sku && (
-            <Error>Please, provide Alphanumeric characters.</Error>
-          )}
+          <Error
+            style={{
+              visibility: `${
+                sku && sku.length > 0 && error.sku ? "visible" : "hidden"
+              }`,
+            }}
+          >
+            Please, provide Alphanumeric characters.
+          </Error>
           <InputWrapper>
-            <label forhtml='sku'>Sku: </label>
+            <label forhtml='sku'>Sku</label>
             <Input
               type='text'
               name='sku'
@@ -99,11 +107,17 @@ function AddProduct() {
               }}
             />
           </InputWrapper>
-          {name && name.length > 0 && error.name && (
-            <Error>Please, provide Alphanumeric characters.</Error>
-          )}
+          <Error
+            style={{
+              visibility: `${
+                name && name.length > 0 && error.name ? "visible" : "hidden"
+              }`,
+            }}
+          >
+            Please, provide Alphanumeric characters.
+          </Error>
           <InputWrapper>
-            <label forhtml='name'>Name: </label>
+            <label forhtml='name'>Name</label>
             <Input
               type='text'
               name='name'
@@ -120,11 +134,17 @@ function AddProduct() {
               }}
             />
           </InputWrapper>
-          {price && price.length > 0 && error.price && (
-            <Error>Please, provide decimal number only.</Error>
-          )}
+          <Error
+            style={{
+              visibility: `${
+                price && price.length > 0 && error.price ? "visible" : "hidden"
+              }`,
+            }}
+          >
+            Please, provide decimal number only.
+          </Error>
           <InputWrapper>
-            <label forhtml='price'>Price: </label>
+            <label forhtml='price'>Price ($) </label>
             <Input
               type='text'
               name='price'
@@ -143,7 +163,6 @@ function AddProduct() {
           </InputWrapper>
           <AttributesContainer>
             <TypeSelectionBox>
-              <> Please select a type: </>
               <select
                 style={{ border: "none" }}
                 id='productType'
@@ -185,7 +204,7 @@ function AddProduct() {
                     });
                 }}
               >
-                <option key='type0'></option>
+                <option key='type0'>Select type</option>
                 {typeList.map((type) => {
                   return (
                     <option key={type.id} value={type.id}>
@@ -198,11 +217,19 @@ function AddProduct() {
             {type === "1" ? (
               <Attributes>
                 Please provide size:
-                {attributes.size &&
-                  attributes.size.length > 0 &&
-                  error.size && (
-                    <Error>Please, provide numeric characters only.</Error>
-                  )}
+                <Error
+                  style={{
+                    visibility: `${
+                      attributes.size &&
+                      attributes.size.length > 0 &&
+                      error.size
+                        ? "visible"
+                        : "hidden"
+                    }`,
+                  }}
+                >
+                  Please, provide numeric characters only.
+                </Error>
                 <AttributeValue
                   type='text'
                   name='size'
@@ -222,11 +249,19 @@ function AddProduct() {
             ) : type === "2" ? (
               <Attributes>
                 Please provide weight:
-                {attributes.weight &&
-                  attributes.weight.length > 0 &&
-                  error.weight && (
-                    <Error>Please, provide numeric characters only.</Error>
-                  )}
+                <Error
+                  style={{
+                    visibility: `${
+                      attributes.weight &&
+                      attributes.weight.length > 0 &&
+                      error.weight
+                        ? "visible"
+                        : "hidden"
+                    }`,
+                  }}
+                >
+                  Please, provide numeric characters only.
+                </Error>
                 <AttributeValue
                   type='text'
                   name='weight'
@@ -246,11 +281,19 @@ function AddProduct() {
             ) : type === "3" ? (
               <Attributes>
                 Please provide dimensions:
-                {attributes.height &&
-                  attributes.height.length > 0 &&
-                  error.height && (
-                    <Error>Please, provide numeric characters only.</Error>
-                  )}
+                <Error
+                  style={{
+                    visibility: `${
+                      attributes.height &&
+                      attributes.height.length > 0 &&
+                      error.height
+                        ? "visible"
+                        : "hidden"
+                    }`,
+                  }}
+                >
+                  Please, provide numeric characters only.
+                </Error>
                 <AttributeValue
                   type='text'
                   name='height'
@@ -266,11 +309,19 @@ function AddProduct() {
                     }
                   }}
                 />
-                {attributes.width &&
-                  attributes.width.length > 0 &&
-                  error.width && (
-                    <Error>Please, provide numeric characters only.</Error>
-                  )}
+                <Error
+                  style={{
+                    visibility: `${
+                      attributes.width &&
+                      attributes.width.length > 0 &&
+                      error.width
+                        ? "visible"
+                        : "hidden"
+                    }`,
+                  }}
+                >
+                  Please, provide numeric characters only.
+                </Error>
                 <AttributeValue
                   type='text'
                   name='width'
@@ -286,11 +337,19 @@ function AddProduct() {
                     }
                   }}
                 />
-                {attributes.length &&
-                  attributes.length.length > 0 &&
-                  error.length && (
-                    <Error>Please, provide numeric characters only.</Error>
-                  )}
+                <Error
+                  style={{
+                    visibility: `${
+                      attributes.length &&
+                      attributes.length.length > 0 &&
+                      error.length
+                        ? "visible"
+                        : "hidden"
+                    }`,
+                  }}
+                >
+                  Please, provide numeric characters only.
+                </Error>
                 <AttributeValue
                   type='text'
                   name='length'
@@ -311,6 +370,7 @@ function AddProduct() {
           </AttributesContainer>
         </Product>
       </form>
+      <footer>Scandiweb test assignement</footer>
     </>
   );
 }
@@ -321,12 +381,12 @@ const Header = styled.header`
   width: 1440px;
   height: 80px;
   margin: auto;
-  padding-left: 100px;
-  padding-right: 100px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 80px;
 `;
 
 const Title = styled.h2`
@@ -362,16 +422,16 @@ const Button = styled.button`
   margin-left: 40px;
   border: 1px solid #1d1f22;
   width: 119px;
+  height: 32px;
+  border-radius: 4px;
 `;
 
 const Product = styled.div`
-  width: 300px;
-  padding-top: 80px;
-  margin: auto;
+  width: 350px;
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  padding: 16px;
+  padding: 16px 40px 16px 40px;
   text-align: left;
   filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
   &:hover {
@@ -405,6 +465,7 @@ const Error = styled.p`
 `;
 
 const AttributesContainer = styled.div`
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -415,9 +476,7 @@ const TypeSelectionBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   height: 32px;
-  & select {
-    margin-left: 12px;
-  }
+  margin-bottom: 12px;
 `;
 
 const Attributes = styled.div`

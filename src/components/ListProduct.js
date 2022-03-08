@@ -66,6 +66,7 @@ function ListProduct() {
           })}
         </Products>
       </section>
+      <footer>Scandiweb test assignement</footer>
     </>
   );
 }
@@ -73,15 +74,14 @@ function ListProduct() {
 export default ListProduct;
 
 const Header = styled.header`
-  width: 1440px;
-  height: 80px;
-  margin: auto;
-  padding-left: 100px;
-  padding-right: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+width: 1440px;
+height: 80px;
+margin: auto;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+border-bottom: 2px solid #ccc;
 `;
 
 const Title = styled.h2`
@@ -105,24 +105,25 @@ const Navigation = styled.nav`
 `;
 
 const Button = styled.button`
-  font-family: Raleway;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 19px;
-  ine-height: 160%;
-  letter-spacing: 0px;
-  text-align: center;
-  cursor: pointer;
-  margin-left: 40px;
-  border: 1px solid #1d1f22;
-  width: 119px;
+font-family: Raleway;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 19px;
+ine-height: 160%;
+letter-spacing: 0px;
+text-align: center;
+cursor: pointer;
+margin-left: 40px;
+border: 1px solid #1d1f22;
+width: 119px;
+height: 32px;
+border-radius: 4px;
 `;
 
 const Products = styled.div`
   width: 1440px;
   margin: auto;
-  padding-top: 80px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
