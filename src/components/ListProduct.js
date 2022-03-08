@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useLayoutEffect, useState } from "react";
+import {useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Product from "./Product";
