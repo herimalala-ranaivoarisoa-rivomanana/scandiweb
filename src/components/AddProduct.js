@@ -1,5 +1,5 @@
 import axios from "axios";
-import {useEffect, useState } from "react";
+import {useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -50,12 +50,7 @@ function AddProduct() {
       });
     }
   };
-useEffect(()=>{
-  console.log(sku)
-  console.log(name)
-  console.log(type)
-  console.log(attributes)
-},[attributes])
+
   return (
     <>
       <Header>
