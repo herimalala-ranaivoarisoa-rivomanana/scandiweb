@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Product = (props) =>{
+
   const {product,skuList,setSkuList} = props;
   const handleChange = (e, sku) =>{
     const inList = skuList.find(el=>el===sku);
