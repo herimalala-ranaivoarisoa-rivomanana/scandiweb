@@ -21,8 +21,8 @@ function ListProduct() {
   }, [toDeleteList]);
 
   useEffect(() => {
-    document.title = "Product list page"
-  }, [])
+    document.title = "Product list page";
+  }, []);
   return (
     <Layout title='Product list' page='list'>
       <div className='products'>

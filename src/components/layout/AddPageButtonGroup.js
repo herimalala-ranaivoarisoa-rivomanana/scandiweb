@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
-import {useDispatch } from "react-redux";
-import {
-  listProducts,
-  saveProduct,
-} from "../../redux/actions/productActions";
+import { useDispatch } from "react-redux";
+import { listProducts, saveProduct } from "../../redux/actions/productActions";
 
 function AddPageButtonGroup(props) {
   const { error, sku, name, price, type, attributes } = props;
@@ -41,11 +38,13 @@ function AddPageButtonGroup(props) {
             : "/addproduct"
         }`}
       >
-        <button onClick={save}>Save</button>
+        <button id='save-product-btn' onClick={save}>
+          Save
+        </button>
       </Link>
 
       <Link to='/'>
-        <button>Cancel</button>
+        <button id='cancel-product-btn'>Cancel</button>
       </Link>
     </div>
   );

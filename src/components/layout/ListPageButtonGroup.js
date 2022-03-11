@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {deleteProduct, listProducts} from "../../redux/actions/productActions";
+import {
+  deleteProduct,
+  listProducts,
+} from "../../redux/actions/productActions";
 
 function ListPageButtonGroup() {
   const selectList = useSelector((state) => state.selectList);
@@ -14,9 +17,15 @@ function ListPageButtonGroup() {
   return (
     <div>
       <Link to='/addproduct'>
-        <button> ADD </button>
+        <button type='submit' id='add-product-btn'>
+          {" "}
+          ADD{" "}
+        </button>
       </Link>
-      <button id="delete-product-btn" onClick={massDelete}> MASS DELETE </button>
+      <button id='delete-product-btn' onClick={massDelete}>
+        {" "}
+        MASS DELETE{" "}
+      </button>
     </div>
   );
 }
