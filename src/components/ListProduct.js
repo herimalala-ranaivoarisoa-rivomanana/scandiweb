@@ -27,8 +27,9 @@ function ListProduct() {
     dispatch(listSelects(toDeleteList)); 
   },[toDeleteList])
 
-  const massDelete = () => {
-   dispatch(deleteProduct(selects));
+  const massDelete = async () => {
+   await dispatch(deleteProduct(selects))
+   .then(() =>dispatch(listProducts()))
   };
 
   return (

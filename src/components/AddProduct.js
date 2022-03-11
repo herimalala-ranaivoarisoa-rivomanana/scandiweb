@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import {useDispatch} from 'react-redux';
-import {saveProduct} from "../redux/actions/productActions";
+import {listProducts, saveProduct} from "../redux/actions/productActions";
 
 function AddProduct() {
   const typeList = [
@@ -41,7 +41,8 @@ function AddProduct() {
       !error.width &&
       !error.height
     ) {
-      dispatch(saveProduct({sku,name,price,typeId:type,attributes}))
+     await dispatch(saveProduct({sku,name,price,typeId:type,attributes}))
+     .then(() =>dispatch(listProducts()))
     }
   };
 
