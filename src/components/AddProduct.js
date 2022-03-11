@@ -1,9 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-
-import {useDispatch} from 'react-redux';
-import {listProducts, saveProduct} from "../redux/actions/productActions";
+import Layout from "./layout/Layout";
 
 function AddProduct() {
   const typeList = [
@@ -12,8 +8,6 @@ function AddProduct() {
     { id: 3, name: "Furniture" },
   ];
 
-  const dispatch = useDispatch();
-  
   const [sku, setSku] = useState();
   const [name, setName] = useState();
   const [price, setPrice] = useState();
@@ -30,51 +24,20 @@ function AddProduct() {
     length: true,
   });
 
-  const save = async () => {
-    if (
-      !error.sku &&
-      !error.name &&
-      !error.price &&
-      !error.size &&
-      !error.weight &&
-      !error.height &&
-      !error.width &&
-      !error.height
-    ) {
-     await dispatch(saveProduct({sku,name,price,typeId:type,attributes}))
-     .then(() =>dispatch(listProducts()))
-    }
-  };
-
   return (
-    <>
-      <Header>
-        <Title>ADD PRODUCT</Title>
-        <Navigation>
-          <Link
-            to={`${
-              !error.sku &&
-              !error.name &&
-              !error.price &&
-              !error.weight &&
-              !error.height &&
-              !error.width &&
-              !error.height
-                ? "/"
-                : "/addproduct"
-            }`}
-          >
-            <Button onClick={save}>Save</Button>
-          </Link>
-
-          <Link to='/'>
-            <Button>Cancel</Button>
-          </Link>
-        </Navigation>
-      </Header>
+    <Layout
+      title='Add product'
+      page='add'
+      error={error}
+      sku={sku}
+      name={name}
+      price={price}
+      type={type}
+      attributes={attributes}
+    >
       <form id='product_form'>
-        <Product>
-          <Error
+        <div className="tile">
+          <p className="error"
             style={{
               visibility: `${
                 sku && sku.length > 0 && error.sku ? "visible" : "hidden"
@@ -82,10 +45,10 @@ function AddProduct() {
             }}
           >
             Please, provide Alphanumeric characters.
-          </Error>
-          <InputWrapper>
+          </p>
+          <div className="inputWrapper">
             <label forhtml='sku'>Sku</label>
-            <Input
+            <input
               type='text'
               name='sku'
               placeholder='Please enter sku'
@@ -100,8 +63,8 @@ function AddProduct() {
                 }
               }}
             />
-          </InputWrapper>
-          <Error
+          </div>
+          <p  className="error"
             style={{
               visibility: `${
                 name && name.length > 0 && error.name ? "visible" : "hidden"
@@ -109,10 +72,10 @@ function AddProduct() {
             }}
           >
             Please, provide Alphanumeric characters.
-          </Error>
-          <InputWrapper>
+          </p>
+          <div className="inputWrapper">
             <label forhtml='name'>Name</label>
-            <Input
+            <input
               type='text'
               name='name'
               placeholder='Please enter a name'
@@ -120,15 +83,15 @@ function AddProduct() {
               required
               onChange={(e) => {
                 setName(e.target.value);
-                if (/^[a-zA-Z0-9]+$/.test(e.target.value)) {
+                if (/^[a-zA-Z0-9-\s]+$/.test(e.target.value)) {
                   setError(Object.assign({}, error, { name: false }));
                 } else {
                   setError(Object.assign({}, error, { name: true }));
                 }
               }}
             />
-          </InputWrapper>
-          <Error
+          </div>
+          <p className="error"
             style={{
               visibility: `${
                 price && price.length > 0 && error.price ? "visible" : "hidden"
@@ -136,10 +99,10 @@ function AddProduct() {
             }}
           >
             Please, provide decimal number only.
-          </Error>
-          <InputWrapper>
+          </p>
+          <div className="inputWrapper">
             <label forhtml='price'>Price ($) </label>
-            <Input
+            <input
               type='text'
               name='price'
               placeholder='Please enter the price'
@@ -154,9 +117,9 @@ function AddProduct() {
                 }
               }}
             />
-          </InputWrapper>
-          <AttributesContainer>
-            <TypeSelectionBox>
+          </div>
+          <div className="attributesContainer">
+            <div className="productType">
               <select
                 style={{ border: "none" }}
                 id='productType'
@@ -207,11 +170,11 @@ function AddProduct() {
                   );
                 })}
               </select>
-            </TypeSelectionBox>
+            </div>
             {type === "1" ? (
-              <Attributes>
-                Please provide size:
-                <Error
+              <div className="attributes">
+                Please provide size in MB:
+                <p className="error"
                   style={{
                     visibility: `${
                       attributes.size &&
@@ -223,8 +186,8 @@ function AddProduct() {
                   }}
                 >
                   Please, provide numeric characters only.
-                </Error>
-                <AttributeValue
+                </p>
+                <input className="attributeValue"
                   type='text'
                   name='size'
                   placeholder='Size'
@@ -239,11 +202,11 @@ function AddProduct() {
                     }
                   }}
                 />
-              </Attributes>
+              </div>
             ) : type === "2" ? (
-              <Attributes>
-                Please provide weight:
-                <Error
+              <div className="attributes">
+                Please provide weight in KG:
+                <p className="error"
                   style={{
                     visibility: `${
                       attributes.weight &&
@@ -255,8 +218,8 @@ function AddProduct() {
                   }}
                 >
                   Please, provide numeric characters only.
-                </Error>
-                <AttributeValue
+                </p>
+                <input className="attributeValue"
                   type='text'
                   name='weight'
                   placeholder='Weight'
@@ -271,11 +234,11 @@ function AddProduct() {
                     }
                   }}
                 />
-              </Attributes>
+              </div>
             ) : type === "3" ? (
-              <Attributes>
-                Please provide dimensions:
-                <Error
+              <div className="attributes">
+                Please provide dimension (HxWxL):
+                <p className="error"
                   style={{
                     visibility: `${
                       attributes.height &&
@@ -287,8 +250,8 @@ function AddProduct() {
                   }}
                 >
                   Please, provide numeric characters only.
-                </Error>
-                <AttributeValue
+                </p>
+                <input className="attributeValue"
                   type='text'
                   name='height'
                   placeholder='Height'
@@ -303,7 +266,7 @@ function AddProduct() {
                     }
                   }}
                 />
-                <Error
+                <p className="error"
                   style={{
                     visibility: `${
                       attributes.width &&
@@ -315,8 +278,8 @@ function AddProduct() {
                   }}
                 >
                   Please, provide numeric characters only.
-                </Error>
-                <AttributeValue
+                </p>
+                <input className="attributeValue"
                   type='text'
                   name='width'
                   placeholder='Width'
@@ -331,7 +294,7 @@ function AddProduct() {
                     }
                   }}
                 />
-                <Error
+                <p className="error"
                   style={{
                     visibility: `${
                       attributes.length &&
@@ -343,8 +306,8 @@ function AddProduct() {
                   }}
                 >
                   Please, provide numeric characters only.
-                </Error>
-                <AttributeValue
+                </p>
+                <input className="attributeValue"
                   type='text'
                   name='length'
                   placeholder='Length'
@@ -359,131 +322,14 @@ function AddProduct() {
                     }
                   }}
                 />
-              </Attributes>
+              </div>
             ) : null}
-          </AttributesContainer>
-        </Product>
+          </div>
+        </div>
       </form>
-      <footer>Scandiweb test assignement</footer>
-    </>
+    </Layout>
   );
 }
 
 export default AddProduct;
 
-const Header = styled.header`
-  width: 1440px;
-  height: 80px;
-  margin: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 80px;
-`;
-
-const Title = styled.h2`
-  font-family: Raleway;
-  font-size: 42px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 67px;
-  line-height: 160%;
-  letter-spacing: 0px;
-  text-align: left;
-  margin: 0;
-`;
-
-const Navigation = styled.nav`
-  height: 80px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Button = styled.button`
-  font-family: Raleway;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 19px;
-  ine-height: 160%;
-  letter-spacing: 0px;
-  text-align: center;
-  cursor: pointer;
-  margin-left: 40px;
-  border: 1px solid #1d1f22;
-  width: 119px;
-  height: 32px;
-  border-radius: 4px;
-`;
-
-const Product = styled.div`
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  padding: 16px 40px 16px 40px;
-  text-align: left;
-  filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
-  &:hover {
-    filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.25));
-  }
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-const Input = styled.input`
-  width: 75%;
-  height: 32px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  padding-left: 8px;
-`;
-
-const Error = styled.p`
-  color: red;
-  font-family: Roboto-semibold;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 19px;
-  ine-height: 160%;
-  letter-spacing: 0px;
-`;
-
-const AttributesContainer = styled.div`
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-`;
-
-const TypeSelectionBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 32px;
-  margin-bottom: 12px;
-`;
-
-const Attributes = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  text-align: left;
-`;
-
-const AttributeValue = styled.input`
-  width: 50%;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  height: 32px;
-  padding-left: 8px;
-`;

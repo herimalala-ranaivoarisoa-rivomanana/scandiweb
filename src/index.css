@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -67,8 +67,6 @@ code {
   src: url("./fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf");
 }
 
-
-
 *,
 *::after,
 *::before {
@@ -88,31 +86,209 @@ html {
 }
 
 body {
-  width:screen;
+  width: screen;
 }
 
-form{
-  width:1440px;
-  height:660px;
-  margin:auto;
-  border-bottom:2px solid #ccc;
+form {
+  width: 1440px;
+  height: 660px;
+  margin: auto;
+  border-bottom: 2px solid #ccc;
 }
 
-section{
-  width:1440px;
-  height:660px;
-  margin:auto;
-  border-bottom:2px solid #ccc;
-}
-
-a{
+a {
   text-decoration: none;
 }
 
-footer{
-  width:1440px;
-  height:200px;
-  margin:auto;
-  padding-top:40px;
-  text-align:center;
+h1 {
+  font-family: Raleway;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 67px;
+  line-height: 160%;
+  letter-spacing: 0px;
+  text-align: left;
+  margin: 0;
+}
+
+button {
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  Line-height: 160%;
+  letter-spacing: 0px;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 40px;
+  border: 1px solid #1d1f22;
+  width: 119px;
+  height: 32px;
+  border-radius: 4px;
+}
+
+header {
+  width: 1440px;
+  height: 80px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+}
+footer {
+  width: 1440px;
+  height: 200px;
+  margin: auto;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.products {
+  width: 1440px;
+  height:680px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 2px solid #ccc;
+}
+
+.productItem{
+  width: 280px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:20px 40px 20px 40px;
+  background: #ffffff;
+  filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+}
+
+.sku{
+font-family: Raleway-semibold;
+font-size: 30px;
+font-style: normal;
+font-weight: 600;
+line-height: 27px;
+line-height: 77%;
+letter-spacing: 0em;
+text-align: left;
+margin-bottom:16px;
+}
+
+.name{
+  font-family: Raleway;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.price{
+  font-family: Raleway-bold;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.attributes{
+  font-family: Source Sans Pro;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.delete-checkbox{
+  position: relative;
+  left: 120px;
+  top: -130px;
+  z-index: 20;
+}
+
+
+
+.tile{
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 16px 40px 16px 40px;
+  text-align: left;
+  filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+  &:hover {
+    filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.25));
+  }
+}
+
+.error{
+  color: red;
+  font-family: Roboto-semibold;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  ine-height: 160%;
+  letter-spacing: 0px;
+}
+
+.inputWrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input{
+  width: 75%;
+  height: 32px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding-left: 8px;
+}
+
+.attributesContainer{
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.productType{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 32px;
+  margin-bottom: 12px;
+}
+
+.attributes{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
+}
+
+.attributeValue{
+  width: 50%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  height: 32px;
+  padding-left: 8px;
 }
