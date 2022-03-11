@@ -14,9 +14,9 @@ function ListPageButtonGroup() {
   return (
     <div>
       <Link to='/addproduct'>
-        <button>ADD</button>
+        <button> ADD </button>
       </Link>
-      <button id="delete-product-btn" onClick={massDelete}>MASS DELETE</button>
+      <button id="delete-product-btn" onClick={massDelete}> MASS DELETE </button>
     </div>
   );
 }
