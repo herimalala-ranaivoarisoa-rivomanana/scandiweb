@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "./layout/Layout";
 
 function AddProduct() {
@@ -23,6 +23,10 @@ function AddProduct() {
     width: true,
     length: true,
   });
+
+  useEffect(() => {
+    document.title = "Adding a product page"
+  }, [])
 
   return (
     <Layout

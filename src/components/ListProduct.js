@@ -20,9 +20,12 @@ function ListProduct() {
     dispatch(listSelects(toDeleteList));
   }, [toDeleteList]);
 
+  useEffect(() => {
+    document.title = "Product list page"
+  }, [])
   return (
     <Layout title='Product list' page='list'>
-      <div class='products'>
+      <div className='products'>
         {products.map((product) => {
           return (
             <div key={product.sku}>

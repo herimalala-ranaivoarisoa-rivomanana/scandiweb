@@ -14,12 +14,12 @@ const Product = (props) =>{
   }
 
   return(
-    <div class="productItem">
+    <div className="productItem">
     <p className="sku">{product.sku}</p>
     <p className="name">{product.name}</p>
     <p className="price">{Number(product.price).toFixed(2)} $</p>
     {product? (
-      <div class="attributes">
+      <div className="attributes">
         {product.typeId === '1' ? (
           <p>
             Size{" "}
@@ -49,7 +49,7 @@ const Product = (props) =>{
     <input
       type='checkbox'
       name='selected'
-      class='delete-checkbox'
+      className='delete-checkbox'
       onChange={(e) => handleChange(e, product)}
     />
   </div>
