@@ -11,6 +11,7 @@ import {
 } from "../constants/productConstants";
 
 import axios from "axios";
+import { SELECT_LIST_REQUEST, SELECT_LIST_SUCCESS } from "../constants/selectConstant";
 
 const listProducts = () => async (dispatch) => {
   try {
@@ -18,7 +19,7 @@ const listProducts = () => async (dispatch) => {
     const { data } = await axios.get(
       `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/`
     );
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.sort(function(a, b){return a['id']-b['id']})});
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
   }
@@ -37,13 +38,18 @@ const saveProduct = (product) => async (dispatch, getState) => {
   }
 };
 
-const deleteProduct = (skuList) => async (dispatch, getState) => {
+const deleteProduct = (list) => async (dispatch, getState) => {
   try {
-    dispatch({ type: PRODUCT_DELETE_REQUEST, payload: skuList });
-    const { data } = await axios.delete(
+    dispatch({ type: PRODUCT_DELETE_REQUEST, payload: list });
+    await axios.post(
       `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/api.php?action=product-delete-selection`,
-      skuList
+      { list }
     );
+    dispatch({ type: PRODUCT_LIST_REQUEST });
+    const { data } = await axios.get(
+      `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/`
+    );
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
   } catch (error) {
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });

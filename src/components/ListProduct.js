@@ -1,22 +1,17 @@
-import axios from "axios";
+
 import {useEffect, useState } from "react";
 
 import {useSelector, useDispatch} from 'react-redux';
-import {listProducts} from "../redux/actions/productActions";
+import {deleteProduct, listProducts} from "../redux/actions/productActions";
 import {listSelects} from  "../redux/actions/selectActions"
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Product from "./Product";
 
-
-const api_instance = axios.create({
-  baseURL: "http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/",
-});
-
 function ListProduct() {
 
-  const [skuList, setSkuList] = useState([]);
+  const [toDeleteList, setToDeleteList] = useState([]);
 
   const selectList = useSelector(state=>state.selectList);
   const {selects} = selectList;
@@ -26,22 +21,14 @@ function ListProduct() {
 
   useEffect(()=>{
      dispatch(listProducts()); 
-     return()=>{
-     } ;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
-
+ 
   useEffect(()=>{
-    dispatch(listSelects(skuList)); 
-  },[skuList,dispatch])
+    dispatch(listSelects(toDeleteList)); 
+  },[toDeleteList])
 
-  const massDelete = async ($skuList) => {
-    await api_instance.post(
-      "api.php?action=product-delete-selection",
-      {/*  */
-        skuList: selects,
-      }
-    );
+  const massDelete = () => {
+   dispatch(deleteProduct(selects));
   };
 
   return (
@@ -62,8 +49,8 @@ function ListProduct() {
               <div key={product.sku}>
                 <Product
                   product={product}
-                  skuList={skuList}
-                  setSkuList={setSkuList}
+                  toDeleteList={toDeleteList}
+                  setToDeleteList={setToDeleteList}
                 />
               </div>
             );

@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 const Product = (props) =>{
 
-  const {product,skuList,setSkuList} = props;
-  const handleChange = (e, sku) =>{
-    const inList = skuList.find(el=>el===sku);
+  const {product,toDeleteList,setToDeleteList} = props;
+  const handleChange = (e, product) =>{
+    const inList = toDeleteList.find(el=>el.sku===product.sku);
     if (e.target.checked) { 
-      if(!inList) setSkuList([...skuList,sku]);
+      if(!inList) setToDeleteList([...toDeleteList,product]);
     }
     else{
       if(inList){
-        setSkuList(skuList.filter(el=>el!==sku))
+        setToDeleteList(toDeleteList.filter(el=>el!==product))
       }
     }
   }
@@ -52,7 +52,7 @@ const Product = (props) =>{
       type='checkbox'
       name='selected'
       className='delete-checkbox'
-      onChange={(e) => handleChange(e, product.sku)}
+      onChange={(e) => handleChange(e, product)}
     />
   </ProductItem>
   )

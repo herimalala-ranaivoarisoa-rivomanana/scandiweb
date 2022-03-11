@@ -89,17 +89,12 @@ class DBController
         try {
             $sql = $this->conn->prepare($query);
             $this->bindQueryParams($sql, $param_type, $param_value_array);
-            if ($sql->execute()) {
-                $response = ['status' => 1, 'message' => 'Record created successfully.', 'sql' => $sql];
-            } else {
-                $response = ['status' => 0, 'message' => 'Failed to create record.', 'sql' => $sql];
-            }
+            $response = $sql->execute();
+            return $response;
         } catch (Exception $e) {
-            exit($e->getMessage());
+            return($e->getMessage());
         }
-        return $response;
     }
-
 
     function update($query, $param_type, $param_value_array)
     {

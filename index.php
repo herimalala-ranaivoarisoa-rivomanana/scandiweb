@@ -23,37 +23,42 @@ if ($request_method == "POST") {
             $typeId = $data['typeId'];
             $attributes = $data['attributes'];
             switch($typeId){
-                case 1:
-                    $product = new Dvd() ;
+                case '1':
+                    $product = new Dvd();
                     break;
-                case 2:
-                    $product = new Book() ;
+                case '2':
+                    $product = new Book();
                     break;
-                case 3:
-                    $product = new Furniture() ;
+                case '3':
+                    $product = new Furniture();
                     break;
                 default:
-                    break;
-            }
-            $insertId = $product->addProduct($sku, $name, $price, $typeId);
-            if (empty($insertId)) {
+                break;
+                }
+            $insertId = $product->addProduct($sku, $name, $price,$typeId, $attributes);
+            if ($insertId!=1) {
                 $response = array(
-                    "message" => "Problem in Adding New Record",
+                    "message" => "Problem in Adding New RecordA",
                     "type" => "error"
                 );
                 echo json_encode($response);
             } else {
-                $insertId = $product->setAttributes($sku,$attributes);
-                if (empty($insertId)) {
-                    $response = array(
-                        "message" => "Problem in Adding New Record",
-                        "type" => "error"
-                    );
-                    echo json_encode($response);
-                } else {
-                    echo json_encode($insertId);
-                }
-            }
+                    $common = new Common();
+                    $insertId = $common->addProduct($sku, $name, $price,$typeId, $attributes);
+                    if ($insertId!=1) {
+                        $product->deleteProduct($sku);
+                        $response = array(
+                            "message" => "Problem in Adding New RecordB",
+                            "type" => "error"
+                        );
+                        echo json_encode($response);
+                    } else {
+                            echo json_encode($insertId);
+                    }
+            } 
+            $common = new Common();
+            $result = $common->getAllProduct();
+            echo json_encode($result);
             break;
 
         case "product-delete":
@@ -64,10 +69,25 @@ if ($request_method == "POST") {
             echo json_encode($result);
             break;
         case "product-delete-selection":
-            $all = $data['skuList'];
-            $product = new Common();
-            $product->deleteSelected($all);
-            $result = $product->getAllProduct();
+            $list = $data['list'];
+            foreach ($list as $product):
+                $sku = $product['sku'];
+                switch($product['typeId']){
+                    case '1':
+                        $dvd = new Dvd();
+                        $dvd->deleteProduct($sku);
+                    case '2':
+                        $book = new Book();
+                        $book->deleteProduct($sku);
+                    case '3':
+                        $furniture = new Furniture();
+                        $furniture->deleteProduct($sku);
+                }
+                $common = new Common();
+                $common->deleteProduct($sku);
+            endforeach;
+            $common = new Common();
+            $result = $common->getAllProduct();
             echo json_encode($result);
             break;
         default:

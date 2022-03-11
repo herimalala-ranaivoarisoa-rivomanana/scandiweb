@@ -1,7 +1,9 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import {useDispatch} from 'react-redux';
+import {saveProduct} from "../redux/actions/productActions";
 
 function AddProduct() {
   const typeList = [
@@ -10,9 +12,8 @@ function AddProduct() {
     { id: 3, name: "Furniture" },
   ];
 
-  const api_instance = axios.create({
-    baseURL: "http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/",
-  });
+  const dispatch = useDispatch();
+  
   const [sku, setSku] = useState();
   const [name, setName] = useState();
   const [price, setPrice] = useState();
@@ -40,13 +41,7 @@ function AddProduct() {
       !error.width &&
       !error.height
     ) {
-      await api_instance.post("api.php?action=product-add", {
-        sku,
-        name,
-        price,
-        typeId: type,
-        attributes: attributes,
-      });
+      dispatch(saveProduct({sku,name,price,typeId:type,attributes}))
     }
   };
 
@@ -55,23 +50,21 @@ function AddProduct() {
       <Header>
         <Title>ADD PRODUCT</Title>
         <Navigation>
-          <Button onClick={save}>
-            <Link
-              to={`${
-                !error.sku &&
-                !error.name &&
-                !error.price &&
-                !error.weight &&
-                !error.height &&
-                !error.width &&
-                !error.height
-                  ? "/"
-                  : "/addproduct"
-              }`}
-            >
-              Save
-            </Link>
-          </Button>
+          <Link
+            to={`${
+              !error.sku &&
+              !error.name &&
+              !error.price &&
+              !error.weight &&
+              !error.height &&
+              !error.width &&
+              !error.height
+                ? "/"
+                : "/addproduct"
+            }`}
+          >
+            <Button onClick={save}>Save</Button>
+          </Link>
 
           <Link to='/'>
             <Button>Cancel</Button>
