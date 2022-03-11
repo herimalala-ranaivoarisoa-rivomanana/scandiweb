@@ -25,6 +25,8 @@ function ListProduct() {
   }, [])
   return (
     <Layout title='Product list' page='list'>
+      <button id="delete-product-btn">MASS DELETE</button>
+      <button>ADD</button>
       <div className='products'>
         {products.map((product) => {
           return (
