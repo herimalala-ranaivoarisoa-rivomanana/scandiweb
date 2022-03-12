@@ -18,7 +18,7 @@ const listProducts = () => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
      /*  `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/` */
-      `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/`
+      `https://scandiweb-junior.vercel.app/`
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.sort(function(a, b){return a['id']-b['id']})});
   } catch (error) {
@@ -30,7 +30,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
     const { data } = await axios.post(
-      `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/api.php?action=product-add`,
+      `https://scandiweb-junior.vercel.app/api.php?action=product-add`,
       product
     );
     dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
@@ -43,12 +43,12 @@ const deleteProduct = (list) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST, payload: list });
     await axios.post(
-      `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/api.php?action=product-delete-selection`,
+      `https://scandiweb-junior.vercel.app/api.php?action=product-delete-selection`,
       { list }
     );
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
-      `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/`
+      `https://scandiweb-junior.vercel.app/`
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
