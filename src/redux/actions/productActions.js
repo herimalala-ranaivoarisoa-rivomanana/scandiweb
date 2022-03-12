@@ -17,6 +17,7 @@ const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
+     /*  `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/` */
       `http://localhost/learning/scandiweb/scandiweb-test%20-%20Copy/`
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.sort(function(a, b){return a['id']-b['id']})});
