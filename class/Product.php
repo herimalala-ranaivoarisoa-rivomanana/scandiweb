@@ -1,6 +1,5 @@
 <?php 
 require_once ("class/DBController.php");
-require_once ("class/Dimension.php");
 abstract class Product
 {
     public $db_handle;
@@ -9,13 +8,12 @@ abstract class Product
         $this->db_handle = new DBController();
     }
     
-    abstract public function addProduct($sku,$name, $price,$typeId, $attributes) ;
+    abstract public function addProduct($sku,$name, $price,$type, $attributes) ;
     abstract public function deleteProduct($sku);
-    abstract public function deleteSelected($all);
 }
 
 class Dvd extends Product{
-    function addProduct($sku,$name, $price,$typeId, $attributes) {
+    function addProduct($sku,$name, $price,$type, $attributes) {
         $query = "INSERT INTO dvd(sku,name,price,size) VALUES (?, ?, ?, ?)";
         $paramType = "ssii";
         $paramValue = array(
@@ -35,21 +33,7 @@ class Dvd extends Product{
             $sku
         );
         $this->db_handle->update($query, $paramType, $paramValue);
-    }
-
-    
-    function deleteSelected($all) {
-        foreach ($all as $id):
-            $query = "DELETE FROM dvd WHERE sku = ?";
-            $paramType = "s";
-            $paramValue = array(
-                $id
-            );
-            $this->db_handle->update($query, $paramType, $paramValue);
-        endforeach;
-           return;
-    }
-    
+    }  
 
     function getAllProduct() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -61,7 +45,7 @@ class Dvd extends Product{
 }
 
 class Book extends Product{
-    function addProduct($sku,$name, $price,$typeId, $attributes) {
+    function addProduct($sku,$name, $price,$type, $attributes) {
         $query = "INSERT INTO book (sku,name,price,weight) VALUES (?, ?, ?, ?)";
         $paramType = "ssii";
         $paramValue = array(
@@ -83,19 +67,6 @@ class Book extends Product{
         $this->db_handle->update($query, $paramType, $paramValue);
     }
 
-    
-    function deleteSelected($all) {
-        foreach ($all as $id):
-            $query = "DELETE FROM book WHERE sku = ?";
-            $paramType = "s";
-            $paramValue = array(
-                $id
-            );
-            $this->db_handle->update($query, $paramType, $paramValue);
-        endforeach;
-           return;
-    }
-
     function getAllProduct() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $sql = "SELECT * FROM book JOIN product ON product.sku =book.sku ORDER BY product.id" ;
@@ -106,7 +77,7 @@ class Book extends Product{
 }
 
 class Furniture extends Product{
-    function addProduct($sku,$name, $price,$typeId, $attributes) {
+    function addProduct($sku,$name, $price,$type, $attributes) {
         $query = "INSERT INTO furniture (sku,name,price,height,width,length) VALUES (?, ?, ?, ?,?,?)";
         $paramType = "ssiiii";
         $paramValue = array(
@@ -129,20 +100,6 @@ class Furniture extends Product{
         $this->db_handle->update($query, $paramType, $paramValue);
     }
 
-    
-    function deleteSelected($all) {
-        foreach ($all as $id):
-            $query = "DELETE FROM furniture WHERE sku = ?";
-            $paramType = "s";
-            $paramValue = array(
-                $id
-            );
-            $this->db_handle->update($query, $paramType, $paramValue);
-        endforeach;
-           return;
-    }
-
-
     function getAllProduct() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $sql = "SELECT * FROM furniture JOIN product ON product.sku =furniture.sku ORDER BY product.id" ;
@@ -153,13 +110,13 @@ class Furniture extends Product{
 }
 
 class Common extends Product{
-        function addProduct($sku,$name, $price,$typeId, $attributes) {
+        function addProduct($sku,$name, $price,$type, $attributes) {
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-            $query = "INSERT INTO product (sku,typeId) VALUES (?, ?)";
-            $paramType = "si";
+            $query = "INSERT INTO product (sku,type) VALUES (?, ?)";
+            $paramType = "ss";
             $paramValue = array(
                 $sku,
-                $typeId
+                $type
             );
             $insertId = $this->db_handle->insert($query, $paramType, $paramValue);
             return $insertId;
@@ -173,7 +130,6 @@ class Common extends Product{
             );
             $this->db_handle->update($query, $paramType, $paramValue);
         }
-        public function deleteSelected($all){}
         
         function getAllProduct() {
         $dvd = new Dvd();

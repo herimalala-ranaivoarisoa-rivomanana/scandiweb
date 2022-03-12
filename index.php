@@ -20,22 +20,10 @@ if ($request_method == "POST") {
             $sku = $data['sku'];
             $name = $data['name'];
             $price = $data['price'];
-            $typeId = $data['typeId'];
+            $type = $data['type'];
             $attributes = $data['attributes'];
-            switch($typeId){
-                case '1':
-                    $product = new Dvd();
-                    break;
-                case '2':
-                    $product = new Book();
-                    break;
-                case '3':
-                    $product = new Furniture();
-                    break;
-                default:
-                break;
-                }
-            $insertId = $product->addProduct($sku, $name, $price,$typeId, $attributes);
+            $product = new $type();
+            $insertId = $product->addProduct($sku, $name, $price,$type, $attributes);
             if ($insertId!=1) {
                 $response = array(
                     "message" => "Problem in Adding New RecordA",
@@ -44,7 +32,7 @@ if ($request_method == "POST") {
                 echo json_encode($response);
             } else {
                     $common = new Common();
-                    $insertId = $common->addProduct($sku, $name, $price,$typeId, $attributes);
+                    $insertId = $common->addProduct($sku, $name, $price,$type, $attributes);
                     if ($insertId!=1) {
                         $product->deleteProduct($sku);
                         $response = array(
@@ -60,29 +48,13 @@ if ($request_method == "POST") {
             $result = $common->getAllProduct();
             echo json_encode($result);
             break;
-
-        case "product-delete":
-            $product_id = $data["sku"];
-            $product = new Common();
-            $product->deleteProduct($product_id);
-            $result = $product->getAllProduct();
-            echo json_encode($result);
-            break;
         case "product-delete-selection":
             $list = $data['list'];
-            foreach ($list as $product):
-                $sku = $product['sku'];
-                switch($product['typeId']){
-                    case '1':
-                        $dvd = new Dvd();
-                        $dvd->deleteProduct($sku);
-                    case '2':
-                        $book = new Book();
-                        $book->deleteProduct($sku);
-                    case '3':
-                        $furniture = new Furniture();
-                        $furniture->deleteProduct($sku);
-                }
+            foreach ($list as $selection):
+                $sku = $selection['sku'];
+                $type = $selection['type'];
+                $product = new $type();
+                $product->deleteProduct($sku);
                 $common = new Common();
                 $common->deleteProduct($sku);
             endforeach;

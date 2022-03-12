@@ -130,7 +130,7 @@ function AddProduct() {
                 onChange={(e) => {
                   setType(e.target.value);
                   setAttributes({});
-                  if (e.target.value === "1")
+                  if (e.target.value === 'DVD')
                     setError({
                       sku: false,
                       name: false,
@@ -141,7 +141,7 @@ function AddProduct() {
                       width: false,
                       length: false,
                     });
-                  if (e.target.value === "2")
+                  if (e.target.value === 'Book')
                     setError({
                       sku: false,
                       name: false,
@@ -152,7 +152,7 @@ function AddProduct() {
                       width: false,
                       length: false,
                     });
-                  if (e.target.value === "3")
+                  if (e.target.value ==='Furniture')
                     setError({
                       sku: false,
                       name: false,
@@ -168,14 +168,14 @@ function AddProduct() {
                 <option key='type0'>Select type</option>
                 {typeList.map((type) => {
                   return (
-                    <option key={type.id} value={type.id}>
+                    <option key={type.id} value={type.name}>
                       {type.name}
                     </option>
                   );
                 })}
               </select>
             </div>
-            {type === "1" ? (
+            {type === "DVD" ? (
               <div className="attributes">
                 Please provide size in MB:
                 <p className="error"
@@ -207,7 +207,7 @@ function AddProduct() {
                   }}
                 />
               </div>
-            ) : type === "2" ? (
+            ) : type === "Book" ? (
               <div className="attributes">
                 Please provide weight in KG:
                 <p className="error"
@@ -239,7 +239,7 @@ function AddProduct() {
                   }}
                 />
               </div>
-            ) : type === "3" ? (
+            ) : type === "Furniture" ? (
               <div className="attributes">
                 Please provide dimension (HxWxL):
                 <p className="error"

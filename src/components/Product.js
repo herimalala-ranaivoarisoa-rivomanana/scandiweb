@@ -20,17 +20,17 @@ const Product = (props) =>{
     <p className="price">{Number(product.price).toFixed(2)} $</p>
     {product? (
       <div className="attributes">
-        {product.typeId === '1' ? (
+        {product.type === 'DVD' ? (
           <p>
             Size{" "}
             {product.size && `${product.size} MB`}
           </p>
-        ) : product.typeId === "2" ? (
+        ) : product.type === "Book" ? (
           <p>
             Weight{" "}
             {product.weight && `${product.weight} KG`}
           </p>
-        ) : (
+        ) : product.type === "Furniture" ? (
           <p>
             Dimension{" "}
             {`${
@@ -43,7 +43,7 @@ const Product = (props) =>{
               product.length
             }`}
           </p>
-        )}
+        ):null}
       </div>
     ) : null}
     <input

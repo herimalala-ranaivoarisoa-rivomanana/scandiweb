@@ -19,7 +19,7 @@ function AddPageButtonGroup(props) {
       !error.height
     ) {
       await dispatch(
-        saveProduct({ sku, name, price, typeId: type, attributes })
+        saveProduct({ sku, name, price, type: type, attributes })
       ).then(() => dispatch(listProducts()));
     }
   };

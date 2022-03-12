@@ -1,15 +1,15 @@
 <?php
 class DBController
 {
-   /*  private $host = "localhost";
+    private $host = "localhost";
     private $user = "root";
     private $password = "";
-    private $database = "scandiweb"; */
+    private $database = "scandiweb"; 
 
-    private $host = "remotemysql.com:3306";
+/*     private $host = "remotemysql.com:3306";
     private $user = "cxCf34Q616";
     private $password = "mcGlCMx5q2";
-    private $database = "cxCf34Q616";
+    private $database = "cxCf34Q616"; */
     private $conn;
 
     function __construct()
