@@ -11,7 +11,6 @@ import {
 } from "../constants/productConstants";
 
 import axios from "axios";
-import { SELECT_LIST_REQUEST, SELECT_LIST_SUCCESS } from "../constants/selectConstant";
 
 const listProducts = () => async (dispatch) => {
   try {

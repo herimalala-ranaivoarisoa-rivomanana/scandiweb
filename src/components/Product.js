@@ -1,6 +1,14 @@
 import React from "react";
+import { useEffect,useState } from "react";
+import { useDispatch } from "react-redux";
+import {listSelects} from "../redux/actions/selectActions";
+
 const Product = (props) => {
-  const { product, toDeleteList, setToDeleteList } = props;
+  const { product} = props;
+  const [toDeleteList, setToDeleteList] = useState([]);
+  const dispatch = useDispatch();
+
+
   const handleChange = (e, product) => {
     const inList = toDeleteList.find((el) => el.sku === product.sku);
     if (e.target.checked) {
@@ -11,6 +19,11 @@ const Product = (props) => {
       }
     }
   };
+
+  useEffect(() => {
+    dispatch(listSelects(toDeleteList));
+  },[toDeleteList])
+
 
   return (
     <div className='productItem'>
