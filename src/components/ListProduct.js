@@ -43,10 +43,6 @@ function ListProduct() {
   ];
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, []);
-
-  useEffect(() => {
     dispatch(listSelects(toDeleteList));
   }, [toDeleteList]);
 
@@ -56,7 +52,7 @@ function ListProduct() {
   return (
     <Layout title='Product list' page='list'>
       <div className='products'>
-        {products2.map((product) => {
+        {products.map((product) => {
           return (
             <div key={product.sku}>
               <Product
