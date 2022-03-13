@@ -167,7 +167,7 @@ function AddProduct() {
                 }}
               >
                 <option key='type0'>Select type</option>
-                {typeList.map((type) => {
+                {(typeList||[]).map((type) => {
                   return (
                     <option key={type.id} value={type.name}>
                       {type.name}
