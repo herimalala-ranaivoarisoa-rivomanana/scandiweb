@@ -39,11 +39,13 @@ function ListProduct() {
 
   useEffect(() => {
     document.title = "Product list page";
+    console.log(products)
+    console.log(products2)
   });
   return (
     <Layout title='Product list' page='list'>
       <div className='products'>
-        {products2.map((product) => {
+        {products.map((product) => {
           return (
             <div key={product.sku}>
               <Product product={product} />
