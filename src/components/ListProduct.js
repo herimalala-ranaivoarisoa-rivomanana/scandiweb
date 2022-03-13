@@ -45,7 +45,7 @@ function ListProduct() {
   return (
     <Layout title='Product list' page='list'>
       <div className='products'>
-        {products.map((product) => {
+        {(products || []).map((product) => {
           return (
             <div key={product.sku}>
               <Product product={product} />
