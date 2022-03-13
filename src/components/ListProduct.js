@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +12,35 @@ function ListProduct() {
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   const dispatch = useDispatch();
+
+  const products2 = [
+    {
+      id: "7",
+      sku: "1111",
+      name: "1111",
+      price: "1111",
+      size: "1111",
+      type: "DVD",
+    },
+    {
+      id: "10",
+      sku: "444",
+      name: "4444",
+      price: "4444",
+      size: "444",
+      type: "DVD",
+    },
+    {
+      id: "11",
+      sku: "5555",
+      name: "5555",
+      price: "5555",
+      height: "2",
+      width: "2",
+      length: "2",
+      type: "Furniture",
+    },
+  ];
 
   useEffect(() => {
     dispatch(listProducts());

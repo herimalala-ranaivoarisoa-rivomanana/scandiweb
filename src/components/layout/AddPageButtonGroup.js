@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { listProducts, saveProduct } from "../../redux/actions/productActions";
@@ -19,7 +20,7 @@ function AddPageButtonGroup(props) {
       !error.height
     ) {
       await dispatch(
-        saveProduct({ sku, name, price, type: type, attributes })
+        saveProduct({ sku, name, price, typeId: type, attributes })
       ).then(() => dispatch(listProducts()));
     }
   };
